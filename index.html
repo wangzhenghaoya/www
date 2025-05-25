@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机点名系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            background-color: #77dd77;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+       .info {
+            margin: 20px 0;
+        }
+
+       .display {
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 24px;
+            width: 100px;
+            margin: 0 auto;
+        }
+
+       .students {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+       .student {
+            border: 1px dashed #e74c3c;
+            border-radius: 50%;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+       .student.active {
+            background-color: #a29bfe;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="start-btn">开始点名</button>
+    <button id="stop-btn">停止点名</button>
+    <div class="info">点名开始！请看大屏幕</div>
+    <div class="display" id="selected-student">无</div>
+    <div class="students">
+        <div class="student">王志甲</div>
+        <div class="student">孙健玮</div>
+        <div class="student">刘宇倩</div>
+        <div class="student">吴梦瑶</div>
+        <div class="student">刘冰倩</div>
+        <div class="student">赵珈艺</div>
+        <div class="student">张智</div>
+        <div class="student">王政皓</div>
+        <div class="student">邵尚薇</div>
+        <div class="student">赵含蕊</div>
+        <div class="student">张璐璐</div>
+        <div class="student">张韵</div>
+        <div class="student">毛诚一</div>
+        <div class="student">陈亚欣</div>
+        <div class="student">徐佳慧</div>
+        <div class="student">李欣宇</div>
+        <div class="student">丁晓萱</div>
+        <div class="student">房芮禾</div>
+        <div class="student">刘一翔</div>
+        <div class="student">董恩浩</div>
+        <div class="student">卜家豪</div>
+        <div class="student">张连祥</div>
+        <div class="student">邢嘉旺</div>
+        <div class="student">赵正阳</div>
+        <div class="student">段鹏松</div>
+        <div class="student">高俊腾</div>
+        <div class="student">祝祥和</div>
+        <div class="student">谷天乐</div>
+        <div class="student">张照毅</div>
+        <div class="student">王子林</div>
+        <div class="student">高鹿桐</div>
+        <div class="student">刘志龙</div>
+        <div class="student">刘峻泽</div>
+        <div class="student">贾旭</div>
+        <div class="student">何沛洋</div>
+        <div class="student">刘百刚</div>
+        <div class="student">李建宇</div>
+        <div class="student">靳思同</div>
+        <div class="student">李凤豪</div>
+        <div class="student">李业勤</div>
+        <div class="student">李万琪</div>
+        <div class="student">李嘉兴</div>
+        <div class="student">王宪斌</div>
+        <div class="student">许珈玮</div>
+        <div class="student">张淑恒</div>
+    </div>
+    <script>
+        const students = document.querySelectorAll('.student');
+        const startBtn = document.getElementById('start-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const display = document.getElementById('selected-student');
+        let timer;
+        let currentIndex = -1;
+
+        startBtn.addEventListener('click', () => {
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * students.length);
+                } while (newIndex === currentIndex);
+                currentIndex = newIndex;
+                students.forEach((student, index) => {
+                    student.classList.remove('active');
+                    if (index === currentIndex) {
+                        student.classList.add('active');
+                    }
+                });
+                display.textContent = students[currentIndex].textContent;
+            }, 100);
+        });
+
+        stopBtn.addEventListener('click', () => {
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            clearInterval(timer);
+        });
+    </script>
+</body>
+
+</html>
